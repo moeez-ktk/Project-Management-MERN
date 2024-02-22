@@ -12,7 +12,7 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         console.log("fetch data:");
-        const response = await axios.get("http://localhost:3000/api/task");
+        const response = await axios.get("https://project-management-server-101.vercel.app/api/task");
         setData(response.data);
         console.log(response.data);
       } catch (error) {

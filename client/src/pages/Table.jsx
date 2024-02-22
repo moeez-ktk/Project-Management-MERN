@@ -57,7 +57,7 @@ const Table = ({ data, setData }) => {
   const handleConfirmMarkAsCompleted = async () => {
     try {
       const id = selectedTask._id;
-      const response = await axios.put(`http://localhost:3000/api/task/${id}`);
+      const response = await axios.put(`https://project-management-server-101.vercel.app/api/task/${id}`);
 
       const updatedData = data.map((item) =>
         item._id === id ? { ...item, complete: true } : item
@@ -74,7 +74,7 @@ const Table = ({ data, setData }) => {
   const handleConfirmCancelTask = async () => {
     try {
       const id = selectedTask._id;
-      const response = await axios.delete(`http://localhost:3000/api/task/${id}`);
+      const response = await axios.delete(`https://project-management-server-101.vercel.app/api/task/${id}`);
 
       const updatedData = data.filter((item) => item._id !== selectedTask._id);
       setData(updatedData);

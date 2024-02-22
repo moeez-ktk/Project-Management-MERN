@@ -25,7 +25,7 @@ const AddTask = ({ handleClose, setData, data }) => {
     console.log("Form submitted with data:", formData);
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/task",
+        "https://project-management-server-101.vercel.app/api/task",
         formData
       );
       console.log("New task added:", response.data);
