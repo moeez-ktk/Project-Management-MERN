@@ -34,6 +34,7 @@ const app = express();
 app.use(express.json());
 const corsOptions = {
   origin: "https://project-management-101.vercel.app/",
+  methods: ["GET", "POST", "PATCH","PUT", "DELETE"],
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };
