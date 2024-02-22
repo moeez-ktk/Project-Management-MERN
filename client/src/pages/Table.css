@@ -179,8 +179,8 @@ button {
   .cancel-btn,
   .complete-btn {
     margin-left: 0;
-    min-width: 4rem;
-    font-size: 0.8rem;
+    min-width: 3.4rem;
+    font-size: 0.7rem;
   }
   #table {
     margin-left: -1.5rem;

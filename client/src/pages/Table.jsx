@@ -36,7 +36,7 @@ const Table = ({ data, setData }) => {
   const [filteredData, setFilteredData] = useState([]);
   const [selectedTask, setSelectedTask] = useState(null);
   const [action, setAction] = useState(true);
-  const [hide, setHide] = useState(false);
+  const [hide, setHide] = useState(true);
 
   useEffect(() => {
     const filter = data.filter((item) => !item.complete);
