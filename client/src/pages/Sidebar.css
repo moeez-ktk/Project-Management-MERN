@@ -140,6 +140,10 @@
 }
 
 @media screen and (max-width: 900px) {
+  #sidebar{
+    height: max-content;
+    padding-bottom: 1rem;
+  }
   #statistics {
     justify-content: center;
     gap: 3rem;
