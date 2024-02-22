@@ -65,27 +65,21 @@
 
 .stat-number {
   margin-left: auto;
+  font-size: 2rem;
+  font-weight: 600;
 }
 
 #completed-number {
   color: rgb(0, 151, 0);
-  font-weight: 600;
-  font-size: 2rem;
 }
 #pending-number {
   color: rgba(255, 0, 0, 0.647);
-  font-weight: 600;
-  font-size: 2rem;
 }
 #total-revenue-number {
   color: rgba(0, 0, 255, 0.688);
-  font-weight: 600;
-  font-size: 2rem;
 }
 #monthly-revenue-number {
   color: orange;
-  font-weight: 600;
-  font-size: 2rem;
 }
 
 /* MEDIA QEURIES */
@@ -212,4 +206,23 @@
     margin-left: 0;
     left: 37%;
   }
+}
+
+@media screen and (max-width: 750px) {
+#sidebar {
+  margin-left: 0.5rem;
+}
+.sidebar-heading{
+  font-size: 1.3rem;
+}
+.add-task-btn{
+  margin-top: 1rem;
+  left: 30%;
+}
+.stat{
+  font-size: 1.1rem;
+}
+.stat-number{
+  font-size: 1.5rem;
+}
 }
