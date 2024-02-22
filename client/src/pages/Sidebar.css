@@ -140,7 +140,7 @@
 }
 
 @media screen and (max-width: 900px) {
-  #sidebar{
+  #sidebar {
     height: max-content;
     padding-bottom: 1rem;
   }
@@ -205,28 +205,34 @@
   .stat:last-child {
     grid-area: item4;
   }
-  .add-task-btn{
+  .add-task-btn {
     position: relative;
     margin-left: 0;
     left: 37%;
   }
 }
 
-@media screen and (max-width: 750px) {
-#sidebar {
-  margin-left: 0.5rem;
+@media screen and (max-width: 450px) {
+  #sidebar {
+    margin-left: 0.5rem;
+  }
+  .sidebar-heading {
+    font-size: 1.3rem;
+  }
+  .add-task-btn {
+    margin-top: 1rem;
+    left: 30%;
+  }
+  .stat {
+    font-size: 1.1rem;
+  }
+  .stat-number {
+    font-size: 1.5rem;
+  }
 }
-.sidebar-heading{
-  font-size: 1.3rem;
-}
-.add-task-btn{
-  margin-top: 1rem;
-  left: 30%;
-}
-.stat{
-  font-size: 1.1rem;
-}
-.stat-number{
-  font-size: 1.5rem;
-}
+
+@media screen and (max-width: 390px) {
+  #sidebar {
+    width: 95%;
+  }
 }
