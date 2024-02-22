@@ -36,6 +36,7 @@ const Table = ({ data, setData }) => {
   const [filteredData, setFilteredData] = useState([]);
   const [selectedTask, setSelectedTask] = useState(null);
   const [action, setAction] = useState(true);
+  const [hide, setHide] = useState(false);
 
   useEffect(() => {
     const filter = data.filter((item) => !item.complete);
@@ -57,7 +58,9 @@ const Table = ({ data, setData }) => {
   const handleConfirmMarkAsCompleted = async () => {
     try {
       const id = selectedTask._id;
-      const response = await axios.put(`https://project-management-server-101.vercel.app/api/task/${id}`);
+      const response = await axios.put(
+        `https://project-management-server-101.vercel.app/api/task/${id}`
+      );
 
       const updatedData = data.map((item) =>
         item._id === id ? { ...item, complete: true } : item
@@ -74,7 +77,9 @@ const Table = ({ data, setData }) => {
   const handleConfirmCancelTask = async () => {
     try {
       const id = selectedTask._id;
-      const response = await axios.delete(`https://project-management-server-101.vercel.app/api/task/${id}`);
+      const response = await axios.delete(
+        `https://project-management-server-101.vercel.app/api/task/${id}`
+      );
 
       const updatedData = data.filter((item) => item._id !== selectedTask._id);
       setData(updatedData);
@@ -93,11 +98,13 @@ const Table = ({ data, setData }) => {
   const handleFilterComplete = () => {
     const filteredComplete = data.filter((item) => item.complete);
     setFilteredData(filteredComplete);
+    setHide(false);
   };
 
   const handleFilterIncomplete = () => {
     const filteredIncomplete = data.filter((item) => !item.complete);
     setFilteredData(filteredIncomplete);
+    setHide(true);
   };
 
   return (
@@ -119,7 +126,7 @@ const Table = ({ data, setData }) => {
               <th>Category</th>
               <th>Budget</th>
               <th>Deadline</th>
-              <th>Action</th>
+              {hide && <th>Action</th>}
             </tr>
           </thead>
           <tbody>
@@ -130,24 +137,26 @@ const Table = ({ data, setData }) => {
                   <td>{category}</td>
                   <td>{budget} PKR</td>
                   <td>{deadline}</td>
-                  <td className="actions-btns">
-                    {!complete && (
-                      <>
-                        <button
-                          className="complete-btn"
-                          onClick={() => markAsCompleted(_id)}
-                        >
-                          Mark as Completed
-                        </button>
-                        <button
-                          className="cancel-btn"
-                          onClick={() => cancelTask(_id)}
-                        >
-                          Cancel Task
-                        </button>
-                      </>
-                    )}
-                  </td>
+                  {hide && (
+                    <td className="actions-btns">
+                      {!complete && (
+                        <>
+                          <button
+                            className="complete-btn"
+                            onClick={() => markAsCompleted(_id)}
+                          >
+                            Mark Complete
+                          </button>
+                          <button
+                            className="cancel-btn"
+                            onClick={() => cancelTask(_id)}
+                          >
+                            Cancel Task
+                          </button>
+                        </>
+                      )}
+                    </td>
+                  )}
                 </tr>
               )
             )}

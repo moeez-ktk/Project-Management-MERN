@@ -176,21 +176,25 @@ button {
 }
 
 @media screen and (max-width: 650px) {
-  .cancel-btn,.complete-btn {
+  .cancel-btn,
+  .complete-btn {
     margin-left: 0;
     min-width: 4rem;
+    font-size: 0.8rem;
   }
-  #table{
+  #table {
     margin-left: -1.5rem;
     width: 106%;
   }
 }
 
 @media screen and (max-width: 450px) {
-  th{
-    font-size: 1rem;
+  th,
+  td {
+    font-size: 0.8rem;
   }
-  .complete-btn,.cancel-btn{
+  .complete-btn,
+  .cancel-btn {
     padding-left: 0;
     padding-right: o;
   }

@@ -33,8 +33,8 @@ const app = express();
 //middleware
 app.use(express.json());
 const corsOptions = {
-  origin: "https://project-management-101.vercel.app/",
-  methods: ["GET", "POST", "PATCH","PUT", "DELETE"],
+  origin: "https://project-management-101.vercel.app",
+  methods: ["GET", "POST", "PATCH", "PUT", "DELETE"],
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };
@@ -47,8 +47,7 @@ app.get("/", (req, res) => {
 // Route to get all table data
 app.get("/api/task", async (req, res) => {
   try {
-    const collection = db.collection("tasks");
-    const tableData = await collection.find({}).toArray();
+    const tableData = await Task.find({}).lean();
     res.send(tableData);
   } catch (error) {
     console.error("Failed to retrieve table data", error);
@@ -73,11 +72,11 @@ app.post("/api/task", async (req, res) => {
 
 // Route to update task completion status
 app.put("/api/task/:id", async (req, res) => {
-  const id = req.params.id.toString(); 
+  const id = req.params.id.toString();
 
   try {
     const updatedTask = await Task.findByIdAndUpdate(id, { complete: true });
-    console.log(updatedTask)
+    console.log(updatedTask);
     res.send(updatedTask);
   } catch (error) {
     console.error("Failed to update task completion status", error);
@@ -87,20 +86,19 @@ app.put("/api/task/:id", async (req, res) => {
 
 // Route to delete a task
 app.delete("/api/task/:id", async (req, res) => {
-    const taskId = req.params.id;
-  
-    try {
-      const deletedTask = await Task.findByIdAndDelete(taskId);
-      if (!deletedTask) {
-        return res.status(404).json({ error: "Task not found" });
-      }
-      res.json({ message: "Task deleted successfully", deletedTask });
-    } catch (error) {
-      console.error("Failed to delete task", error);
-      res.status(500).json({ error: "Failed to delete task" });
+  const taskId = req.params.id;
+
+  try {
+    const deletedTask = await Task.findByIdAndDelete(taskId);
+    if (!deletedTask) {
+      return res.status(404).json({ error: "Task not found" });
     }
-  });
-  
+    res.json({ message: "Task deleted successfully", deletedTask });
+  } catch (error) {
+    console.error("Failed to delete task", error);
+    res.status(500).json({ error: "Failed to delete task" });
+  }
+});
 
 // Start the server
 const PORT = process.env.PORT || 3000;
