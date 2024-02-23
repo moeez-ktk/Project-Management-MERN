@@ -28,7 +28,7 @@ const AddTask = ({ handleClose, setData, data }) => {
         "https://project-management-server-101.vercel.app/api/task",
         formData
       );
-      console.log("New task added:", response.data);
+      // console.log("New task added:", response.data);
       setData((prevData) => [...prevData, response.data]);
       setFormData({
         customerName: "",
