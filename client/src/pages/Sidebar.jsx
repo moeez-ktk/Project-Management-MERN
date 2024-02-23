@@ -40,7 +40,7 @@ const Sidebar = ({ data,setData }) => {
 
   return (
     <div id="sidebar">
-      <h1 className="sidebar-heading">Muhammad Ahmed</h1>
+      <h1 className="sidebar-heading">Ahmad Khattak</h1>
 
       <button className="add-task-btn" onClick={toggleAddTask}>
         Add Task
