@@ -12,7 +12,7 @@ const Login = () => {
     const storedPassword = localStorage.getItem("erp-password");
     const usernameFromEnv = import.meta.env.VITE_USERNAME;
     const passwordFromEnv = import.meta.env.VITE_PASSWORD;
-
+    console.login(usernameFromEnv, passwordFromEnv);
     if (
       storedUsername &&
       storedPassword &&
