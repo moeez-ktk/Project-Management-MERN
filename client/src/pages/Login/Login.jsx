@@ -12,7 +12,6 @@ const Login = () => {
     const storedPassword = localStorage.getItem("erp-password");
     const usernameFromEnv = import.meta.env.VITE_USERNAME;
     const passwordFromEnv = import.meta.env.VITE_PASSWORD;
-    console.log(usernameFromEnv, passwordFromEnv);
     if (
       storedUsername &&
       storedPassword &&
@@ -26,7 +25,6 @@ const Login = () => {
   const handleSubmit = () => {
     const usernameFromEnv = import.meta.env.VITE_USERNAME;
     const passwordFromEnv = import.meta.env.VITE_PASSWORD;
-    console.log(usernameFromEnv, passwordFromEnv);
     if (username == usernameFromEnv && password == passwordFromEnv) {
       console.log("Login successful");
       localStorage.setItem("erp-username", username);
