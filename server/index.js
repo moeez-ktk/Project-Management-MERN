@@ -21,7 +21,10 @@ const taskSchema = new mongoose.Schema({
   category: String,
   budget: String,
   deadline: String,
+  expertName:String,
+  expertBudget:String,
   complete: Boolean,
+  cancel:Boolean,
 });
 
 // Create a model
@@ -33,7 +36,7 @@ const app = express();
 //middleware
 app.use(express.json());
 const corsOptions = {
-  origin: "https://project-management-101.vercel.app",
+  origin: ["https://project-management-101.vercel.app","http://localhost:5173/"],
   methods: ["GET", "POST", "PATCH", "PUT", "DELETE"],
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
@@ -61,6 +64,7 @@ app.post("/api/task", async (req, res) => {
     const newData = req.body;
     newData._id = new mongoose.Types.ObjectId();
     newData.complete = false;
+    newData.cancel = false;
     const newTask = new Task(newData);
     await newTask.save();
     res.send(newTask);
@@ -85,7 +89,7 @@ app.put("/api/task/:id", async (req, res) => {
 });
 
 // Route to delete a task
-app.delete("/api/task/:id", async (req, res) => {
+app.patch("/api/task/:id", async (req, res) => {
   const taskId = req.params.id;
 
   try {

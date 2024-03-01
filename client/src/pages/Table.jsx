@@ -17,6 +17,8 @@ const Popup = ({
         <p>Category: {task.category}</p>
         <p>Budget: {task.budget} PKR</p>
         <p>Deadline: {task.deadline}</p>
+        <p>Expert Name: {task.expertName}</p>
+        <p>Expert Budget: {task.expertBudget} PKR</p>
         <div className="popup-buttons">
           {action ? (
             <button onClick={onConfirmMarkAsCompleted}>
@@ -39,7 +41,7 @@ const Table = ({ data, setData }) => {
   const [hide, setHide] = useState(true);
 
   useEffect(() => {
-    const filter = data.filter((item) => !item.complete);
+    const filter = data.filter((item) => !item.complete && !item.cancel);
     setFilteredData(filter);
   }, [data]);
 
@@ -58,9 +60,7 @@ const Table = ({ data, setData }) => {
   const handleConfirmMarkAsCompleted = async () => {
     try {
       const id = selectedTask._id;
-      const response = await axios.put(
-        `https://project-management-server-101.vercel.app/api/task/${id}`
-      );
+      const response = await axios.put(`https://project-management-server-101.vercel.app/api/task/${id}`);
 
       const updatedData = data.map((item) =>
         item._id === id ? { ...item, complete: true } : item
@@ -77,13 +77,15 @@ const Table = ({ data, setData }) => {
   const handleConfirmCancelTask = async () => {
     try {
       const id = selectedTask._id;
-      const response = await axios.delete(
+      const response = await axios.patch(
         `https://project-management-server-101.vercel.app/api/task/${id}`
       );
 
-      const updatedData = data.filter((item) => item._id !== selectedTask._id);
+      const updatedData = data.map((item) =>
+        item._id === id ? { ...item, cancel: true } : item
+      );
       setData(updatedData);
-      const filter = data.filter((item) => item.complete === false);
+      const filter = data.filter((item) => !item.complete && !item.cancel);
       setFilteredData(filter);
       setSelectedTask(null);
     } catch (error) {
@@ -96,15 +98,27 @@ const Table = ({ data, setData }) => {
   };
 
   const handleFilterComplete = () => {
-    const filteredComplete = data.filter((item) => item.complete);
+    const filteredComplete = data.filter(
+      (item) => item.complete && !item.cancel
+    );
     setFilteredData(filteredComplete);
     setHide(false);
   };
 
   const handleFilterIncomplete = () => {
-    const filteredIncomplete = data.filter((item) => !item.complete);
+    const filteredIncomplete = data.filter(
+      (item) => !item.complete && !item.cancel
+    );
     setFilteredData(filteredIncomplete);
     setHide(true);
+  };
+
+  const handleFilterCancel = () => {
+    const filteredIncomplete = data.filter(
+      (item) => item.cancel
+    );
+    setFilteredData(filteredIncomplete);
+    setHide(false);
   };
 
   return (
@@ -116,6 +130,9 @@ const Table = ({ data, setData }) => {
         <button className="filter-btn" onClick={handleFilterIncomplete}>
           Show Incomplete
         </button>
+        <button className="filter-btn" onClick={handleFilterCancel}>
+          Show Cancel
+        </button>
       </div>
 
       <div id="table">
@@ -126,17 +143,30 @@ const Table = ({ data, setData }) => {
               <th>Category</th>
               <th>Budget</th>
               <th>Deadline</th>
+              <th>Expert Name</th>
+              <th>Expert Budget</th>
               {hide && <th>Action</th>}
             </tr>
           </thead>
           <tbody>
             {filteredData.map(
-              ({ _id, customerName, category, budget, deadline, complete }) => (
+              ({
+                _id,
+                customerName,
+                category,
+                budget,
+                deadline,
+                expertName,
+                expertBudget,
+                complete,
+              }) => (
                 <tr key={_id}>
                   <td>{customerName}</td>
                   <td>{category}</td>
                   <td>{budget} PKR</td>
                   <td>{deadline}</td>
+                  <td>{expertName}</td>
+                  <td>{expertBudget} PKR</td>
                   {hide && (
                     <td className="actions-btns">
                       {!complete && (

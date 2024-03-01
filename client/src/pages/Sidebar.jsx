@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Sidebar.css";
 import AddTask from "./AddTask";
 
-const Sidebar = ({ data,setData }) => {
+const Sidebar = ({ data, setData }) => {
   const [showAddTask, setShowAddTask] = useState(false);
   const [completed, setCompleted] = useState(0);
   const [pending, setPending] = useState(0);
@@ -20,16 +20,14 @@ const Sidebar = ({ data,setData }) => {
     }
     data.forEach((task) => {
       // console.log(date, task.deadline.split("-")[1],task.complete);
-      if (task.deadline.split("-")[1] == date && task.complete) {
+      if (task.deadline.split("-")[1] == date) {
         temp += parseInt(task.budget);
       }
     });
     setMonthlyRevenue(parseInt(temp, 10).toString());
     temp = 0;
     data.forEach((task) => {
-      if (task.complete) {
-        temp += parseInt(task.budget);
-      }
+      temp += parseInt(task.budget);
     });
     setTotalRevenue(parseInt(temp, 10).toString());
   });
@@ -40,7 +38,7 @@ const Sidebar = ({ data,setData }) => {
 
   return (
     <div id="sidebar">
-      <h1 className="sidebar-heading">Ahmad Khattak</h1>
+      <h1 className="sidebar-heading">Muhammad Ahmed</h1>
 
       <button className="add-task-btn" onClick={toggleAddTask}>
         Add Task
@@ -73,7 +71,7 @@ const Sidebar = ({ data,setData }) => {
         </div>
       </div>
 
-      {showAddTask && <AddTask handleClose={toggleAddTask} setData={setData}/>}
+      {showAddTask && <AddTask handleClose={toggleAddTask} setData={setData} />}
     </div>
   );
 };

@@ -8,6 +8,8 @@ const AddTask = ({ handleClose, setData, data }) => {
     budget: "",
     category: "",
     deadline: "",
+    expertName: "", // New field
+    expertBudget: "", // New field
   });
 
   const handleChange = (e) => {
@@ -16,25 +18,23 @@ const AddTask = ({ handleClose, setData, data }) => {
       ...formData,
       [name]: value,
     });
-    console.log(deadline);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission, for example, send data to backend or perform validation
-    console.log("Form submitted with data:", formData);
     try {
       const response = await axios.post(
         "https://project-management-server-101.vercel.app/api/task",
         formData
       );
-      // console.log("New task added:", response.data);
       setData((prevData) => [...prevData, response.data]);
       setFormData({
         customerName: "",
         budget: "",
         category: "",
         deadline: "",
+        expertName: "",
+        expertBudget: "",
       });
     } catch (error) {
       console.error("Failed to add new task:", error);
@@ -92,6 +92,29 @@ const AddTask = ({ handleClose, setData, data }) => {
               id="deadline"
               name="deadline"
               value={formData.deadline}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="expertName">Expert Name:</label>
+            <input
+              type="text"
+              id="expertName"
+              name="expertName"
+              value={formData.expertName}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="expertBudget">Expert Budget:</label>
+            <input
+              type="number"
+              min={0}
+              id="expertBudget"
+              name="expertBudget"
+              value={formData.expertBudget}
               onChange={handleChange}
               required
             />

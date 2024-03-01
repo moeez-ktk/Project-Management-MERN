@@ -33,7 +33,7 @@ const app = express();
 //middleware
 app.use(express.json());
 const corsOptions = {
-  origin: "https://project-management-101.vercel.app",
+  origin: ["https://project-management-101.vercel.app","http://localhost:5173/"],
   methods: ["GET", "POST", "PATCH", "PUT", "DELETE"],
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
