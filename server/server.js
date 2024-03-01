@@ -33,7 +33,7 @@ const app = express();
 //middleware
 app.use(express.json());
 const corsOptions = {
-  origin: ["https://project-management-101.vercel.app","http://localhost:5173/"],
+  origin: "https://project-management-101.vercel.app",
   methods: ["GET", "POST", "PATCH", "PUT", "DELETE"],
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
@@ -85,7 +85,7 @@ app.put("/api/task/:id", async (req, res) => {
 });
 
 // Route to delete a task
-app.delete("/api/task/:id", async (req, res) => {
+app.patch("/api/task/:id", async (req, res) => {
   const taskId = req.params.id;
 
   try {
