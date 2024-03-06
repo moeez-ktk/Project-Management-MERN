@@ -12,8 +12,6 @@ const AddTask = ({ handleClose, setData, data }) => {
     expertBudget: "", // New field
   });
 
-  const [time, setTime] = useState("");
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -25,11 +23,6 @@ const AddTask = ({ handleClose, setData, data }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const formattedDate = `${formData.deadline}, ${time}`;
-      setFormData({
-        ...formData,
-        deadline: formattedDate,
-      });
       const response = await axios.post(
         "https://project-management-server-101.vercel.app/api/task",
         formData
@@ -43,7 +36,6 @@ const AddTask = ({ handleClose, setData, data }) => {
         expertName: "",
         expertBudget: "",
       });
-      setTime("");
     } catch (error) {
       console.error("Failed to add new task:", error);
     }
@@ -90,17 +82,6 @@ const AddTask = ({ handleClose, setData, data }) => {
               name="category"
               value={formData.category}
               onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="time">Time:</label>
-            <input
-              type="text"
-              id="time"
-              name="time"
-              value={time}
-              onChange={(e) => setTime(e.target.value)}
               required
             />
           </div>
