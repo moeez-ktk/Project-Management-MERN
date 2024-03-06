@@ -19,15 +19,14 @@ const Sidebar = ({ data, setData }) => {
       date = "0" + date;
     }
     data.forEach((task) => {
-      // console.log(date, task.deadline.split("-")[1],task.complete);
-      if (task.deadline.split("-")[1] == date) {
+      if (task.deadline.split("-")[1] == date && !task.cancel) {
         temp += parseInt(task.budget);
       }
     });
     setMonthlyRevenue(parseInt(temp, 10).toString());
     temp = 0;
     data.forEach((task) => {
-      temp += parseInt(task.budget);
+      if (!task.cancel) temp += parseInt(task.budget);
     });
     setTotalRevenue(parseInt(temp, 10).toString());
   });
@@ -38,7 +37,7 @@ const Sidebar = ({ data, setData }) => {
 
   return (
     <div id="sidebar">
-      <h1 className="sidebar-heading">Muhammad Ahmed</h1>
+      <h1 className="sidebar-heading">Ahmad Khattak</h1>
 
       <button className="add-task-btn" onClick={toggleAddTask}>
         Add Task
