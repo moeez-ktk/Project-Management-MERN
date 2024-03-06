@@ -25,9 +25,10 @@ const AddTask = ({ handleClose, setData, data }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const formattedDate = `${formData.deadline}, ${time}`;
       setFormData({
         ...formData,
-        [date]: date+", "+time,
+        deadline: formattedDate,
       });
       const response = await axios.post(
         "https://project-management-server-101.vercel.app/api/task",
@@ -93,13 +94,13 @@ const AddTask = ({ handleClose, setData, data }) => {
             />
           </div>
           <div>
-            <label htmlFor="category">Time:</label>
+            <label htmlFor="time">Time:</label>
             <input
               type="text"
-              id="category"
-              name="category"
+              id="time"
+              name="time"
               value={time}
-              onChange={setTime(e => e.target.value)}
+              onChange={(e) => setTime(e.target.value)}
               required
             />
           </div>
